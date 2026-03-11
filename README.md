@@ -15,6 +15,7 @@ DealMaker helps you discover savings, compare vendors, and negotiate with confid
 - [Key experiences](#key-experiences)
 - [Design principles](#design-principles)
 - [Development](#development)
+- [Contributing](#contributing)
 
 ---
 
@@ -108,21 +109,33 @@ This section is for engineers setting up and running the project.
 ### Prerequisites
 
 - **Node.js** 18+ (LTS recommended)
-- **pnpm** 9.x — e.g. `npm install -g pnpm@9` or `corepack enable && corepack prepare pnpm@9.15.0 --activate`
+- **pnpm** 9.x — the [quickstart script](#quick-setup) can enable it via corepack or npm if missing
 
-### Setup (step by step)
+### Quick setup
+
+From the repo root, run the one-time setup script. It checks Node.js, ensures pnpm is available, installs dependencies, and optionally creates `plug-extension/.env` from the example:
+
+```bash
+git clone https://github.com/Nkasi-e/deal-maker.git dealmaker
+cd dealmaker
+./quickstart.sh
+```
+
+Then start the app or extension (see [Commands](#commands) below).
+
+### Manual setup
 
 1. **Clone and enter the repo**
    ```bash
-   git clone <your-repo-url> dealmaker
+   git clone https://github.com/Nkasi-e/deal-maker.git dealmaker
    cd dealmaker
    ```
 
 2. **Install dependencies (from repo root)**  
-   Installs dependencies for the web app and the extension:
    ```bash
    pnpm install
    ```
+   Or use the Makefile: `make install`.
 
 3. **(Optional) Extension API keys**  
    For AI features in the extension:
@@ -130,31 +143,30 @@ This section is for engineers setting up and running the project.
    cp plug-extension/.env.example plug-extension/.env
    # Edit plug-extension/.env: VITE_OPENROUTER_API_KEY and/or VITE_OPENAI_API_KEY
    ```
-   You can skip this; the extension still works with built-in tips and sample data.
+   The extension still works with built-in tips and sample data if you skip this.
 
-### Running the project
+### Commands
 
-| Goal | Command (from repo root) | Notes |
-|------|---------------------------|------|
-| **Web app only** | `pnpm run dev:frontend` | App at **http://localhost:3000** |
-| **Extension dev only** | `pnpm run dev:extension` | Vite dev server for extension UI. To use in Chrome, build and load `plug-extension/dist` (see [plug-extension/README.md](plug-extension/README.md)). |
-| **Build extension** | `pnpm run build:extension` | Required before loading in Chrome (`chrome://extensions` → Load unpacked → `plug-extension/dist`) |
-| **Run both** | Two terminals: `pnpm run dev:frontend` and `pnpm run dev:extension` | Both are long-running. |
+You can use **make** (recommended) or **pnpm** from the repo root:
+
+| Goal | Make | pnpm |
+|------|------|------|
+| **Web app** | `make frontend` | `pnpm run dev:frontend` |
+| **Extension dev** | `make extension` | `pnpm run dev:extension` |
+| **Both (same terminal)** | `make both` | — |
+| **Build all** | `make build` | `pnpm run build:frontend` then `pnpm run build:extension` |
+| **Install deps** | `make install` | `pnpm install` |
+
+Run `make` or `make help` to list all targets. The web app runs at **http://localhost:3000**. To use the extension in Chrome, run `make build-extension` (or `pnpm run build:extension`) and load **`plug-extension/dist`** in `chrome://extensions` (Load unpacked).
 
 ### Build for production
 
-From repo root:
-
 | Command | Output |
 |---------|--------|
-| `pnpm run build:frontend` | Next.js app → `frontend/.next` |
-| `pnpm run build:extension` | Chrome extension → `plug-extension/dist` |
+| `make build-frontend` or `pnpm run build:frontend` | Next.js app → `frontend/.next` |
+| `make build-extension` or `pnpm run build:extension` | Chrome extension → `plug-extension/dist` |
 
-Build everything:
-```bash
-pnpm run build:frontend
-pnpm run build:extension
-```
+Build everything: `make build`.
 
 ### Project layout
 
@@ -162,13 +174,29 @@ pnpm run build:extension
 |------|-------------|
 | [**frontend/**](frontend/README.md) | Web app — landing, onboarding, dashboard, opportunities, negotiations, evaluate, vendors, analytics, vendor intelligence, activity, settings. |
 | [**plug-extension/**](plug-extension/README.md) | Chrome extension — price detection, comparison, negotiation insights on product and SaaS pages. |
+| **Makefile** | `make help`, `make install`, `make frontend`, `make extension`, `make both`, `make build`, etc. |
+| **quickstart.sh** | One-time setup: Node/pnpm check, `pnpm install`, optional extension `.env`. |
 
 ### Quick reference
 
-| Task | Command (from repo root) |
-|------|---------------------------|
-| Install all dependencies | `pnpm install` |
-| Dev: web app only | `pnpm run dev:frontend` |
-| Dev: extension only | `pnpm run dev:extension` |
-| Build: web app | `pnpm run build:frontend` |
-| Build: extension | `pnpm run build:extension` |
+| Task | Command |
+|------|---------|
+| One-time setup | `./quickstart.sh` |
+| List make targets | `make` or `make help` |
+| Install dependencies | `make install` or `pnpm install` |
+| Start web app | `make frontend` or `pnpm run dev:frontend` |
+| Start extension dev | `make extension` or `pnpm run dev:extension` |
+| Start both | `make both` |
+| Build all | `make build` |
+
+---
+
+## Contributing
+
+DealMaker is open to contributions. We welcome bug reports, feature ideas, documentation improvements, and code changes.
+
+- **Bugs and features** — Open an issue to report a bug or suggest a feature. Please search existing issues first.
+- **Code and docs** — Open a pull request from a fork. Use a short branch (e.g. `fix/extension-panel` or `docs/readme-setup`), keep changes focused, and reference any related issue.
+- **Scope** — Contributions to the web app ([frontend/](frontend/README.md)), the Chrome extension ([plug-extension/](plug-extension/README.md)), tooling (Makefile, quickstart.sh), and docs (README, design, and UX) are all welcome.
+
+By contributing, you agree that your contributions may be used under the same terms as the project license.
