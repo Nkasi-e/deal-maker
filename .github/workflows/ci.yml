@@ -1,0 +1,42 @@
+# DealMaker CI – runs on push to main
+# Installs deps, lints frontend, builds frontend and extension
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint frontend
+        run: pnpm --filter dealmaker-ui lint
+
+      - name: Build frontend
+        run: pnpm run build:frontend
+
+      - name: Build extension
+        run: pnpm run build:extension
+        env:
+          # Extension build works without keys (demo mode)
+          VITE_OPENROUTER_API_KEY: ""
+          VITE_OPENAI_API_KEY: ""
