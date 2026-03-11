@@ -1,0 +1,13 @@
+{
+  "name": "dealmaker-monorepo",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "workspaces": [
+    "frontend",
+    "plug-extension"
+  ],
+  "scripts": {
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev:extension": "pnpm --filter plug-extension dev"
+  }
+}

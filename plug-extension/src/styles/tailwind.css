@@ -1,0 +1,62 @@
+/* No @tailwind base — avoids injecting resets / global styles into the host page */
+@tailwind components;
+@tailwind utilities;
+
+/* Keyframe animations used inline via style= (not via Tailwind class — avoids purge issues) */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+@layer components {
+  /* All DealMaker UI scoped under .dealmaker-overlay or .dealmaker-badge */
+  .dealmaker-overlay {
+    /* Protect against hostile host styles (Temu, etc.) */
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", sans-serif;
+    line-height: 1.5;
+    font-size: 14px;
+    text-transform: none;
+    word-break: normal;
+    white-space: normal;
+  }
+
+  .dealmaker-overlay *,
+  .dealmaker-overlay *::before,
+  .dealmaker-overlay *::after {
+    box-sizing: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    text-transform: none;
+  }
+
+  .dealmaker-overlay p,
+  .dealmaker-overlay span,
+  .dealmaker-overlay a,
+  .dealmaker-overlay li {
+    word-break: normal;
+    white-space: normal;
+  }
+
+  .dm-card {
+    @apply rounded-xl bg-slate-900/80 border border-slate-800/80 shadow-dm-soft;
+    /* No backdrop-blur — it blurs the page content behind our panel */
+  }
+
+  .dm-badge {
+    @apply inline-flex items-center gap-1 rounded-full border border-slate-700/70 bg-slate-900/80 px-2.5 py-1 text-xs font-medium text-slate-200;
+  }
+
+  .dm-pill-button {
+    @apply inline-flex items-center justify-center rounded-full bg-dm-accent px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-blue-500 transition;
+  }
+}
+

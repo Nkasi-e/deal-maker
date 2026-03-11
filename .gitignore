@@ -1,0 +1,18 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build / tooling
+dist
+.next
+.turbo
+.vite
+
+# Env and secrets
+.env
+.env.local
+.env.*.local
+
+# IDE / OS
+.DS_Store
+*.log
