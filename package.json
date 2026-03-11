@@ -7,7 +7,9 @@
     "plug-extension"
   ],
   "scripts": {
-    "dev:frontend": "pnpm --filter frontend dev",
-    "dev:extension": "pnpm --filter plug-extension dev"
+    "dev:frontend": "pnpm --filter dealmaker-ui dev",
+    "dev:extension": "pnpm --filter dealmaker-extension dev",
+    "build:frontend": "pnpm --filter dealmaker-ui build",
+    "build:extension": "pnpm --filter dealmaker-extension build"
   }
 }

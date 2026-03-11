@@ -7,7 +7,7 @@ dist
 .next
 .turbo
 .vite
-
+docs
 # Env and secrets
 .env
 .env.local
@@ -16,3 +16,9 @@ dist
 # IDE / OS
 .DS_Store
 *.log
+
+# Package-specific (paths from repo root)
+# frontend/some-local-file.json
+# frontend/coverage/
+# plug-extension/some-local-file.json
+# plug-extension/coverage/
