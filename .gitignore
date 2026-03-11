@@ -1,5 +1,24 @@
-.env.local
-.env
+# Dependencies
 node_modules
+.pnpm-store
+
+# Build / tooling
+dist
 .next
 .turbo
+.vite
+docs
+# Env and secrets
+.env
+.env.local
+.env.*.local
+
+# IDE / OS
+.DS_Store
+*.log
+
+# Package-specific (paths from repo root)
+# frontend/some-local-file.json
+# frontend/coverage/
+# plug-extension/some-local-file.json
+# plug-extension/coverage/

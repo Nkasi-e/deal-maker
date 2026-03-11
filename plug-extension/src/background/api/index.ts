@@ -1,0 +1,1 @@
+export { buildDealInsights } from "./insights";
