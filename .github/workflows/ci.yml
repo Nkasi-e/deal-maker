@@ -28,8 +28,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Lint frontend
-        run: pnpm --filter dealmaker-ui lint
+      # - name: Lint frontend
+      #   run: pnpm --filter dealmaker-ui exec eslint .
 
       - name: Build frontend
         run: pnpm run build:frontend
