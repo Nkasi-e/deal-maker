@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { User, Sliders, Bell, Shield, Plug } from "lucide-react";
@@ -23,7 +23,7 @@ type SettingsTab = "profile" | "agent" | "notifications" | "security" | "integra
 
 const VALID_TABS: SettingsTab[] = ["profile", "agent", "notifications", "security", "integrations"];
 
-export default function SettingsPage() {
+function SettingsPageContent() {
   const toast = useToast();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -161,5 +161,13 @@ export default function SettingsPage() {
         </Tabs>
       </div>
     </DashboardPage>
+  );
+}
+
+export default function SettingsPage() {
+  return (
+    <Suspense fallback={<DashboardPage title="Settings" description="Loading…"><div className="max-w-2xl animate-pulse rounded-lg bg-muted h-64" /></DashboardPage>}>
+      <SettingsPageContent />
+    </Suspense>
   );
 }
